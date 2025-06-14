@@ -5,127 +5,143 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Devignity - Coming Soon</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="matrix-bg"></div>
-    <div class="scanlines"></div>
-    
-    <div class="container">
-        <!-- Terminal Window -->
-        <div class="terminal">
-            <div class="terminal-header">
-                <div class="terminal-buttons">
-                    <span class="btn red"></span>
-                    <span class="btn yellow"></span>
-                    <span class="btn green"></span>
-                </div>
-                <div class="terminal-title">devignity@system:~$</div>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">DEVIGNITY</div>
+            <div class="nav-links">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
-            <div class="terminal-body">
-                <div class="terminal-line">
-                    <span class="prompt">root@devignity:~$</span>
-                    <span class="command typing-effect">./initialize_system.sh</span>
-                </div>
-                <div class="terminal-line delay-1">
-                    <span class="output">Loading Devignity systems...</span>
-                </div>
-                <div class="terminal-line delay-2">
-                    <span class="output success">[OK] Core modules initialized</span>
-                </div>
-                <div class="terminal-line delay-3">
-                    <span class="output success">[OK] Security protocols active</span>
-                </div>
-                <div class="terminal-line delay-4">
-                    <span class="output warning">[WAIT] System deployment in progress...</span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="hero-title-line">CRAFTING DIGITAL</span>
+                    <span class="hero-title-line">EXPERIENCES</span>
+                </h1>
+                <p class="hero-subtitle">Where innovation meets creativity. We design and develop cutting-edge digital solutions that transform ideas into reality.</p>
+                
+                <div class="status-badge">
+                    <span class="status-indicator"></span>
+                    <span class="status-text">Coming Soon</span>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Main Content -->
-        <div class="main-content">            <div class="logo-container">
-                <h1 class="logo" data-text="DEVIGNITY">DEVIGNITY</h1>
-                <div class="logo-underline"></div>
-                <p class="tagline">Digital Innovation • Creative Solutions • Tech Excellence</p>
-            </div>
-              <div class="status-container">
-                <h2 class="status-text typing-text">System Launching Soon</h2>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                    <div class="progress-text">Initializing...</div>
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Digital Innovation</h3>
+                    <p class="feature-description">Pioneering solutions that push the boundaries of technology and design.</p>
                 </div>
-            </div>            <div class="message-container">
-                <p class="message fade-in">
-                    <span class="bracket">[</span>
-                    <span class="text">Innovative technology solutions in development</span>
-                    <span class="bracket">]</span>
-                </p>
-                <p class="message fade-in delay">
-                    <span class="bracket">[</span>
-                    <span class="text">Get ready for the future of digital innovation</span>
-                    <span class="bracket">]</span>
-                </p>
-            </div>            <!-- Countdown Timer -->
-            <div class="countdown-container">
-                <div class="countdown-title">Launch Countdown</div>
-                <div class="countdown">
-                    <div class="time-unit">
-                        <span class="time-value" id="days">00</span>
-                        <span class="time-label">DAYS</span>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="9" cy="9" r="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M21 15L16 10L5 21" stroke="currentColor" stroke-width="2"/>
+                        </svg>
                     </div>
-                    <div class="time-separator">:</div>
-                    <div class="time-unit">
-                        <span class="time-value" id="hours">00</span>
-                        <span class="time-label">HOURS</span>
-                    </div>
-                    <div class="time-separator">:</div>
-                    <div class="time-unit">
-                        <span class="time-value" id="minutes">00</span>
-                        <span class="time-label">MINUTES</span>
-                    </div>
-                    <div class="time-separator">:</div>
-                    <div class="time-unit">
-                        <span class="time-value" id="seconds">00</span>
-                        <span class="time-label">SECONDS</span>
-                    </div>
+                    <h3 class="feature-title">Creative Solutions</h3>
+                    <p class="feature-description">Transforming complex challenges into elegant, user-friendly experiences.</p>
                 </div>
-            </div>            <!-- Social Links -->
-            <div class="social-container">
-                <div class="social-title">Connect With Us</div>
-                <div class="social-links">
-                    <a href="#" class="social-link" data-text="TWITTER">TWITTER</a>
-                    <a href="#" class="social-link" data-text="LINKEDIN">LINKEDIN</a>
-                    <a href="#" class="social-link" data-text="GITHUB">GITHUB</a>
-                    <a href="#" class="social-link" data-text="EMAIL">EMAIL</a>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="feature-title">Tech Excellence</h3>
+                    <p class="feature-description">Delivering high-performance solutions with cutting-edge technology.</p>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="copyright">
-                <span class="bracket">[</span>
-                <span class="year" id="currentYear">2025</span>
-                <span class="bracket">]</span>
-                <span class="text">ALL RIGHTS RESERVED TO DEVIGNITY</span>
-                <div class="footer-line"></div>
+    <!-- Countdown Section -->
+    <section class="countdown-section">
+        <div class="container">
+            <h2 class="section-title">Launch Countdown</h2>
+            <div class="countdown">
+                <div class="time-unit">
+                    <span class="time-value" id="days">00</span>
+                    <span class="time-label">Days</span>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-unit">
+                    <span class="time-value" id="hours">00</span>
+                    <span class="time-label">Hours</span>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-unit">
+                    <span class="time-value" id="minutes">00</span>
+                    <span class="time-label">Minutes</span>
+                </div>
+                <div class="time-separator">:</div>
+                <div class="time-unit">
+                    <span class="time-value" id="seconds">00</span>
+                    <span class="time-label">Seconds</span>
+                </div>
             </div>
-        </footer>
-    </div>
+        </div>
+    </section>
 
-    <!-- Particles -->
-    <div class="particles">
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-    </div>
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2 class="newsletter-title">Stay Updated</h2>
+                <p class="newsletter-subtitle">Be the first to know when we launch. Get exclusive insights and early access.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" class="newsletter-input">
+                    <button type="submit" class="newsletter-button">Notify Me</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">DEVIGNITY</div>
+                    <p class="footer-tagline">Digital Innovation • Creative Solutions • Tech Excellence</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Twitter</a>
+                    <a href="#" class="footer-link">LinkedIn</a>
+                    <a href="#" class="footer-link">GitHub</a>
+                    <a href="#" class="footer-link">Email</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">&copy; <span id="currentYear">2025</span> Devignity. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>

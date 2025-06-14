@@ -1,19 +1,17 @@
-// Set current year
+// Modern JavaScript for the new design
 document.addEventListener('DOMContentLoaded', function() {
+    // Set current year
     const currentYear = new Date().getFullYear();
     document.getElementById('currentYear').textContent = currentYear;
     
     // Initialize countdown
     initCountdown();
     
-    // Initialize matrix effect
-    initMatrixEffect();
+    // Initialize scroll effects
+    initScrollEffects();
     
-    // Initialize terminal animation
-    initTerminalAnimation();
-    
-    // Initialize particle system
-    initParticles();
+    // Initialize form handling
+    initFormHandling();
 });
 
 // Countdown Timer
@@ -48,291 +46,128 @@ function initCountdown() {
     setInterval(updateCountdown, 1000);
 }
 
-// Matrix Rain Effect (Reduced intensity)
-function initMatrixEffect() {
-    const matrixContainer = document.querySelector('.matrix-bg');
-    const characters = '01';
+// Scroll Effects
+function initScrollEffects() {
+    // Navigation background on scroll
+    const nav = document.querySelector('.nav');
     
-    function createMatrixRain() {
-        if (Math.random() < 0.3) { // Reduced frequency
-            const column = document.createElement('div');
-            column.style.position = 'absolute';
-            column.style.top = '-100px';
-            column.style.left = Math.random() * window.innerWidth + 'px';
-            column.style.color = `rgba(56, 178, 172, ${Math.random() * 0.3 + 0.1})`;
-            column.style.fontSize = Math.random() * 14 + 8 + 'px';
-            column.style.fontFamily = 'Inter, sans-serif';
-            column.style.animation = `matrixFall ${Math.random() * 5 + 8}s linear`;
-            column.style.pointerEvents = 'none';
-            column.style.zIndex = '-1';
-            
-            const char = characters[Math.floor(Math.random() * characters.length)];
-            column.textContent = char;
-            
-            matrixContainer.appendChild(column);
-            
-            // Remove element after animation
-            setTimeout(() => {
-                if (column.parentNode) {
-                    column.parentNode.removeChild(column);
-                }
-            }, 13000);
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav.style.background = 'rgba(10, 10, 10, 0.98)';
+        } else {
+            nav.style.background = 'rgba(10, 10, 10, 0.95)';
         }
-    }
-    
-    // Add CSS for matrix fall animation
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes matrixFall {
-            to {
-                transform: translateY(calc(100vh + 100px));
-                opacity: 0;
-            }
-        }
-    `;
-    document.head.appendChild(style);
-    
-    // Create matrix rain every 800ms (reduced frequency)
-    setInterval(createMatrixRain, 800);
-}
-
-// Terminal Animation (Reduced effects)
-function initTerminalAnimation() {
-    const terminalLines = document.querySelectorAll('.terminal-line');
-    
-    // Add cursor effect to typing elements
-    const typingElements = document.querySelectorAll('.typing-effect');
-    typingElements.forEach(element => {
-        setTimeout(() => {
-            element.style.borderRight = 'none';
-        }, 4000);
     });
     
-    // Reduced terminal flicker effect
-    setInterval(() => {
-        const terminal = document.querySelector('.terminal');
-        if (Math.random() < 0.01) { // Reduced from 5% to 1%
-            terminal.style.opacity = '0.95';
-            setTimeout(() => {
-                terminal.style.opacity = '1';
-            }, 30);
-        }
-    }, 3000);
-}
-
-// Enhanced Particle System (Reduced intensity)
-function initParticles() {
-    const particlesContainer = document.querySelector('.particles');
+    // Intersection Observer for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
     
-    function createParticle() {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        
-        // Random properties
-        const size = Math.random() * 2 + 0.5; // Smaller particles
-        const startX = Math.random() * window.innerWidth;
-        const duration = Math.random() * 15 + 20; // Slower movement
-        const delay = Math.random() * 8;
-        
-        particle.style.width = size + 'px';
-        particle.style.height = size + 'px';
-        particle.style.left = startX + 'px';
-        particle.style.animationDuration = duration + 's';
-        particle.style.animationDelay = delay + 's';
-        
-        // Softer colors
-        const colors = ['#38b2ac', '#8b45ff', '#a0a0a0'];
-        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        particle.style.boxShadow = `0 0 ${size}px ${particle.style.backgroundColor}`;
-        
-        particlesContainer.appendChild(particle);
-        
-        // Remove particle after animation
-        setTimeout(() => {
-            if (particle.parentNode) {
-                particle.parentNode.removeChild(particle);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
             }
-        }, (duration + delay) * 1000);
-    }
+        });
+    }, observerOptions);
     
-    // Create initial particles (reduced amount)
-    for (let i = 0; i < 10; i++) {
-        setTimeout(createParticle, i * 1000);
-    }
-    
-    // Continue creating particles (less frequently)
-    setInterval(createParticle, 4000);
+    // Observe elements for animation
+    const animateElements = document.querySelectorAll('.feature-card, .time-unit, .newsletter-content');
+    animateElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
 }
 
-// Glitch Effect for Logo
-function initGlitchEffect() {
-    const logo = document.querySelector('.logo');
+// Form Handling
+function initFormHandling() {
+    const form = document.querySelector('.newsletter-form');
+    const input = document.querySelector('.newsletter-input');
+    const button = document.querySelector('.newsletter-button');
     
-    setInterval(() => {
-        if (Math.random() < 0.1) { // 10% chance
-            logo.style.animation = 'none';
-            logo.classList.add('glitch-active');
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const email = input.value.trim();
+        
+        if (email && isValidEmail(email)) {
+            // Show success state
+            button.textContent = 'Thank You!';
+            button.style.background = '#10b981';
+            button.style.color = '#ffffff';
             
+            // Reset after 3 seconds
             setTimeout(() => {
-                logo.classList.remove('glitch-active');
-                logo.style.animation = 'logoGlow 3s ease-in-out infinite alternate';
-            }, 200);
-        }
-    }, 3000);
-}
-
-// Progress Bar Animation
-function animateProgressBar() {
-    const progressFill = document.querySelector('.progress-fill');
-    const progressText = document.querySelector('.progress-text');
-    
-    let progress = 0;
-    const interval = setInterval(() => {
-        progress += Math.random() * 2;
-        if (progress >= 100) {
-            progress = 100;
-            progressText.textContent = 'System Ready!';
-            clearInterval(interval);
-            
-            setTimeout(() => {
-                progress = 0;
-                progressFill.style.width = '0%';
-                progressText.textContent = 'Initializing...';
-                animateProgressBar();
+                button.textContent = 'Notify Me';
+                button.style.background = '#ffffff';
+                button.style.color = '#000000';
+                input.value = '';
             }, 3000);
         } else {
-            progressText.textContent = `Loading... ${Math.floor(progress)}%`;
+            // Show error state
+            input.style.borderColor = '#ef4444';
+            input.style.background = 'rgba(239, 68, 68, 0.1)';
+            
+            setTimeout(() => {
+                input.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                input.style.background = 'rgba(255, 255, 255, 0.05)';
+            }, 2000);
         }
-        progressFill.style.width = progress + '%';
-    }, 100);
-}
-
-// Initialize progress bar animation
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(animateProgressBar, 5000);
-});
-
-// Keyboard event listeners for easter eggs
-document.addEventListener('keydown', function(event) {
-    // Konami Code: ↑↑↓↓←→←→BA
-    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 
-                       'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
-    
-    if (!window.konamiSequence) {
-        window.konamiSequence = [];
-    }
-    
-    window.konamiSequence.push(event.code);
-    
-    if (window.konamiSequence.length > konamiCode.length) {
-        window.konamiSequence.shift();
-    }
-    
-    if (window.konamiSequence.length === konamiCode.length && 
-        window.konamiSequence.every((key, index) => key === konamiCode[index])) {
-        
-        // Easter egg: Matrix mode
-        document.body.classList.add('matrix-mode');
-        
-        const style = document.createElement('style');
-        style.textContent = `
-            .matrix-mode {
-                animation: matrixTransform 2s ease-in-out;
-            }
-            @keyframes matrixTransform {
-                0% { filter: hue-rotate(0deg); }
-                50% { filter: hue-rotate(180deg) contrast(2); }
-                100% { filter: hue-rotate(360deg); }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        setTimeout(() => {
-            document.body.classList.remove('matrix-mode');
-        }, 2000);
-        
-        window.konamiSequence = [];
-    }
-});
-
-// Mouse tracking effect
-document.addEventListener('mousemove', function(event) {
-    const cursor = document.querySelector('.cursor-trail') || createCursorTrail();
-    cursor.style.left = event.clientX + 'px';
-    cursor.style.top = event.clientY + 'px';
-});
-
-function createCursorTrail() {
-    const cursor = document.createElement('div');
-    cursor.className = 'cursor-trail';
-    cursor.style.cssText = `
-        position: fixed;
-        width: 20px;
-        height: 20px;
-        background: radial-gradient(circle, rgba(0,255,0,0.5) 0%, transparent 70%);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9999;
-        transition: all 0.1s ease;
-    `;
-    document.body.appendChild(cursor);
-    return cursor;
-}
-
-// Audio feedback (optional - can be uncommented if audio files are added)
-/*
-function playSound(soundFile) {
-    const audio = new Audio(soundFile);
-    audio.volume = 0.1;
-    audio.play().catch(e => console.log('Audio play failed:', e));
-}
-*/
-
-// Social link interactions
-document.addEventListener('DOMContentLoaded', function() {
-    const socialLinks = document.querySelectorAll('.social-link');
-    
-    socialLinks.forEach(link => {
-        link.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px) scale(1.05)';
-        });
-        
-        link.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(-2px) scale(1)';
-        });
     });
-});
+}
 
-// Initialize all effects
-document.addEventListener('DOMContentLoaded', function() {
-    initGlitchEffect();
-    
-    // Add some random visual effects
-    setInterval(() => {
-        if (Math.random() < 0.3) {
-            const particles = document.querySelectorAll('.particle');
-            if (particles.length > 0) {
-                const randomParticle = particles[Math.floor(Math.random() * particles.length)];
-                randomParticle.style.filter = 'brightness(2)';
-                setTimeout(() => {
-                    randomParticle.style.filter = 'brightness(1)';
-                }, 200);
+// Email validation
+function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Smooth scrolling for navigation links
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('nav-link')) {
+        e.preventDefault();
+        
+        const targetId = e.target.getAttribute('href');
+        if (targetId.startsWith('#')) {
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
         }
-    }, 1000);
+    }
+});
+
+// Mouse tracking for subtle parallax effect
+document.addEventListener('mousemove', (e) => {
+    const heroBackground = document.querySelector('.hero-background');
+    if (heroBackground) {
+        const x = (e.clientX / window.innerWidth) * 100;
+        const y = (e.clientY / window.innerHeight) * 100;
+        
+        heroBackground.style.background = `
+            radial-gradient(circle at ${x}% ${y}%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+            radial-gradient(circle at ${100-x}% ${100-y}%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+            linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #0a0a0a 100%)
+        `;
+    }
 });
 
 // Performance optimization
 let ticking = false;
 
-function updateAnimations() {
-    // Batch DOM updates here if needed
-    ticking = false;
-}
-
 function requestTick() {
     if (!ticking) {
-        requestAnimationFrame(updateAnimations);
+        requestAnimationFrame(() => {
+            ticking = false;
+        });
         ticking = true;
     }
 }
