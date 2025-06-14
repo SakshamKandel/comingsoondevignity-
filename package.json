@@ -1,31 +1,37 @@
 {
-  "name": "infaces-website",
+  "name": "devignity-infinite-experience",
   "version": "1.0.0",
-  "description": "INFACES - Modern Digital Memories Website with GSAP Animations",
-  "main": "server.js",
+  "description": "Revolutionary 120fps infinite-scroll coming soon website for Devignity",
+  "main": "index.html",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js",
-    "serve": "node server.js"
+    "start": "http-server -p 3000 --cors -o",
+    "dev": "http-server -p 3000 --cors -o -c-1",
+    "serve": "http-server -p 3000 --cors",
+    "build": "echo 'Static site - no build needed'",
+    "preview": "http-server -p 8080 --cors -o"
   },
   "keywords": [
-    "infaces",
-    "digital-memories",
-    "gsap",
-    "animations",
-    "modern-website",
-    "portfolio"
+    "devignity",
+    "webgl",
+    "threejs",
+    "120fps",
+    "infinite-scroll",
+    "neural-network",
+    "matrix-rain",
+    "particles",
+    "revolutionary"
   ],
-  "author": "Devignity Team",
+  "author": "Devignity",
   "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
   "engines": {
     "node": ">=14.0.0"
   },
-  "dependencies": {},
-  "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "local"
+    "url": "."
   },
   "homepage": "http://localhost:3000"
 }
