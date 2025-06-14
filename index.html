@@ -16,26 +16,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">    <!-- External Libraries - Enhanced for Modern Web Experience -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MorphSVGPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.16"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://unpkg.com/@studio-freight/lenis@1.0.19/dist/lenis.min.js"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/lib/typed.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/anime.js/3.2.1/anime.min.js"></script>
-    <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.0/dist/vanilla-tilt.min.js"></script>
-    <script src="https://unpkg.com/rellax@1.12.1/rellax.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/intersection-observer@0.12.2/intersection-observer.js"></script>
     <script src="https://unpkg.com/progressbar.js@1.1.0/dist/progressbar.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/barba@2.9.7/dist/barba.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/curtains@8.1.4/dist/curtains.umd.min.js"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link href="https://unpkg.com/splitting/dist/splitting.css" rel="stylesheet">
+
     
     <!-- Icons and Additional Resources -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -147,43 +138,6 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-            overflow-x: hidden;        }        /* AGGRESSIVE SCROLLBAR HIDING - COMPLETE REMOVAL */
-        html, body {
-            overflow-x: hidden !important;
-            overflow-y: auto !important;
-            scroll-behavior: smooth !important;
-            /* Remove all scrollbars completely */
-            -ms-overflow-style: none !important;  /* IE and Edge */
-            scrollbar-width: none !important;  /* Firefox */
-        }
-        
-        /* Complete scrollbar removal for WebKit browsers */
-        html::-webkit-scrollbar,
-        body::-webkit-scrollbar,
-        *::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
-            height: 0 !important;
-            background: transparent !important;
-            -webkit-appearance: none !important;
-        }
-        
-        html::-webkit-scrollbar-track,
-        body::-webkit-scrollbar-track,
-        *::-webkit-scrollbar-track {
-            display: none !important;
-            background: transparent !important;
-        }
-        
-        html::-webkit-scrollbar-thumb,
-        body::-webkit-scrollbar-thumb,
-        *::-webkit-scrollbar-thumb {
-            display: none !important;
-            background: transparent !important;
-        }
-        
         body {
             font-family: 'Space Grotesk', sans-serif;
             background: var(--bg-gradient);
@@ -201,25 +155,7 @@
             overflow: hidden;
         }
         
-        /* When loading is complete, allow scrolling but keep scrollbars hidden */
-        body.loaded {
-            overflow: auto;
-            overflow-y: auto;
-        }
-        
-        /* Global scrollbar hiding for ALL elements */
-        * {
-            -ms-overflow-style: none !important;  /* IE and Edge */
-            scrollbar-width: none !important;  /* Firefox */
-        }
-        
-        /* Webkit scrollbar hiding for ALL elements */
-        *::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
-            height: 0 !important;
-            background: transparent !important;
-        }/* Modern Loading Screen */        /* Modern Loading Screen with Quotes */
+        /* Modern Loading Screen */        /* Modern Loading Screen with Quotes */
         .loading-screen {
             position: fixed;
             top: 0;
@@ -1502,53 +1438,6 @@
             transition: transform 0.3s ease;
         }
 
-        /* Infinite Scroll Effect */
-        .infinite-scroll {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .floating-elements {
-            position: absolute;
-            width: 100%;
-            height: 200%;
-            animation: infiniteFloat 20s linear infinite;
-        }
-
-        .floating-element {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: var(--accent-green);
-            border-radius: 50%;
-            opacity: 0.3;
-        }
-
-        .floating-element:nth-child(2n) {
-            background: var(--accent-purple);
-            animation-delay: -5s;
-        }
-
-        .floating-element:nth-child(3n) {
-            background: var(--accent-yellow);
-            animation-delay: -10s;
-        }
-
-        @keyframes infiniteFloat {
-            0% {
-                transform: translateY(100vh);
-            }
-            100% {
-                transform: translateY(-100vh);
-            }
-        }
-
         /* Enhanced Animations */
         .char {
             display: inline-block;
@@ -1912,44 +1801,440 @@
             line-height: 1.5;
         }
 
-        /* Stats Section */
+        /* Stats Section - Enhanced with Visual Elements */
         .stats-section {
-            padding: 6rem 2rem;
-            background: rgba(255, 255, 255, 0.02);
+            padding: 8rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.03) 0%, rgba(128, 0, 255, 0.03) 100%);
             position: relative;
             z-index: 2;
+            overflow: hidden;
+        }
+
+        /* Background Elements */
+        .stats-bg-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .floating-geometric {
+            position: absolute;
+            border: 2px solid rgba(0, 255, 136, 0.2);
+            animation: floatGeometric 8s ease-in-out infinite;
+        }
+
+        .geometric-1 {
+            width: 60px;
+            height: 60px;
+            top: 10%;
+            left: 10%;
+            transform: rotate(45deg);
+            animation-delay: 0s;
+        }
+
+        .geometric-2 {
+            width: 40px;
+            height: 40px;
+            top: 20%;
+            right: 15%;
+            border-radius: 50%;
+            animation-delay: 2s;
+        }
+
+        .geometric-3 {
+            width: 80px;
+            height: 80px;
+            bottom: 15%;
+            left: 20%;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation-delay: 4s;
+        }
+
+        @keyframes floatGeometric {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 0.7; }
+        }
+
+        .energy-wave {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.5), transparent);
+            animation: energyFlow 3s linear infinite;
+        }
+
+        .wave-1 {
+            top: 30%;
+            animation-delay: 0s;
+        }
+
+        .wave-2 {
+            bottom: 30%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes energyFlow {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Connecting Lines */
+        .stats-connections {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .connection-line {
+            stroke: #00FF88;
+            stroke-width: 2;
+            stroke-dasharray: 10, 5;
+            animation: dashFlow 3s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes dashFlow {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: 30; }
+        }
+
+        .line-dot {
+            fill: #00FF88;
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+
+        .dot-1 { animation-delay: 0s; }
+        .dot-2 { animation-delay: 0.5s; }
+        .dot-3 { animation-delay: 1s; }
+        .dot-4 { animation-delay: 1.5s; }
+
+        @keyframes dotPulse {
+            0%, 100% { r: 3; opacity: 1; }
+            50% { r: 8; opacity: 0.3; }
         }
 
         .stats-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
-            max-width: 1000px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            z-index: 3;
             text-align: center;
         }
 
         .stat-item {
             position: relative;
+            padding: 3rem 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        /* Geometric Borders */
+        .stat-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .border-corner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00FF88;
+            transition: all 0.3s ease;
+        }
+
+        .corner-tl {
+            top: 10px;
+            left: 10px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-tr {
+            top: 10px;
+            right: 10px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .corner-bl {
+            bottom: 10px;
+            left: 10px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner-br {
+            bottom: 10px;
+            right: 10px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .stat-item:hover .border-corner {
+            width: 30px;
+            height: 30px;
+            border-color: #8000FF;
+        }
+
+        /* Floating Icons */
+        .stat-icon-float {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 50%;
+            font-size: 1.2rem;
+            color: #00FF88;
+            transition: all 0.3s ease;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .stat-item:hover .stat-icon-float {
+            background: rgba(128, 0, 255, 0.2);
+            color: #8000FF;
+            transform: scale(1.2) rotate(360deg);
+        }
+
+        /* Progress Rings */
+        .stat-progress-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+
+        .progress-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 2;
+        }
+
+        .progress-fill {
+            fill: none;
+            stroke: #00FF88;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-dasharray: 220;
+            stroke-dashoffset: 220;
+            transform-origin: center;
+            transform: rotate(-90deg);
+            animation: progressFill 2s ease-out forwards;
+        }
+
+        @keyframes progressFill {
+            to {
+                stroke-dashoffset: calc(220 - (220 * 40) / 100);
+            }
+        }
+
+        .stat-item:hover .stat-progress-ring {
+            opacity: 0.8;
         }
 
         .stat-number {
-            font-size: 3rem;
+            font-size: 4rem;
             font-weight: 900;
-            background: var(--gradient-primary);
+            background: linear-gradient(135deg, #00FF88 0%, #8000FF 50%, #00FFFF 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-family: 'JetBrains Mono', monospace;
             display: block;
+            margin-bottom: 1rem;
+            animation: numberGlow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes numberGlow {
+            0% { filter: brightness(1) saturate(1); }
+            100% { filter: brightness(1.2) saturate(1.3); }
         }
 
         .stat-label {
-            font-size: 1rem;
-            color: var(--text-secondary);
+            font-size: 1.1rem;
+            color: #FFFFFF;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 0.5rem;
+            letter-spacing: 3px;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Particle Effects */
+        .stat-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00FF88;
+            border-radius: 50%;
+            animation: particleFloat 4s linear infinite;
+        }
+
+        .p1 {
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .p2 {
+            top: 60%;
+            right: 30%;
+            animation-delay: 1s;
+        }
+
+        .p3 {
+            bottom: 30%;
+            left: 70%;
+            animation-delay: 2s;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* Data Flow Animation */
+        .data-flow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .flow-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #00FF88, transparent);
+            border-radius: 50%;
+            animation: dataFlow 5s linear infinite;
+        }
+
+        .flow-1 {
+            top: 25%;
+            animation-delay: 0s;
+        }
+
+        .flow-2 {
+            top: 50%;
+            animation-delay: 1.5s;
+        }
+
+        .flow-3 {
+            top: 75%;
+            animation-delay: 3s;
+        }
+
+        @keyframes dataFlow {
+            0% {
+                left: -10px;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                left: 100%;
+                opacity: 0;
+            }
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 
+                0 20px 40px rgba(0, 255, 136, 0.2),
+                0 0 60px rgba(128, 0, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .stats-section {
+                padding: 4rem 1rem;
+            }
+            
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .stat-item {
+                padding: 2rem 1rem;
+            }
+            
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.9rem;
+                letter-spacing: 2px;
+            }
+            
+            .geometric-1, .geometric-2, .geometric-3 {
+                display: none;
+            }
         }
 
         /* Progress Bars */
@@ -2084,11 +2369,6 @@
     <!-- Modern Geometric Background Elements -->
     <div class="geometric-bg"></div>
     <div class="floating-lines"></div>
-
-    <!-- Infinite Scroll Effect -->
-    <div class="infinite-scroll">
-        <div class="floating-elements" id="floatingElements"></div>
-    </div>
 
     <!-- Gradient Orbs -->
     <div class="gradient-orb orb-1" id="orb1"></div>
@@ -2275,23 +2555,161 @@
         </div>
     </section>    <!-- Stats Section -->
     <section class="stats-section">
+        <!-- Animated Background Elements -->
+        <div class="stats-bg-elements">
+            <div class="floating-geometric geometric-1"></div>
+            <div class="floating-geometric geometric-2"></div>
+            <div class="floating-geometric geometric-3"></div>
+            <div class="energy-wave wave-1"></div>
+            <div class="energy-wave wave-2"></div>
+        </div>
+        
+        <!-- Connecting Lines SVG -->
+        <svg class="stats-connections" viewBox="0 0 1200 400">
+            <defs>
+                <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#00FF88;stop-opacity:0"/>
+                    <stop offset="50%" style="stop-color:#00FF88;stop-opacity:1"/>
+                    <stop offset="100%" style="stop-color:#8000FF;stop-opacity:0"/>
+                </linearGradient>
+            </defs>
+            <line class="connection-line line-1" x1="150" y1="200" x2="450" y2="200"/>
+            <line class="connection-line line-2" x1="450" y1="200" x2="750" y2="200"/>
+            <line class="connection-line line-3" x1="750" y1="200" x2="1050" y2="200"/>
+            <!-- Animated dots on lines -->
+            <circle class="line-dot dot-1" cx="150" cy="200" r="3"/>
+            <circle class="line-dot dot-2" cx="450" cy="200" r="3"/>
+            <circle class="line-dot dot-3" cx="750" cy="200" r="3"/>
+            <circle class="line-dot dot-4" cx="1050" cy="200" r="3"/>
+        </svg>
+        
         <div class="stats-container">
             <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+                <!-- Geometric Border -->
+                <div class="stat-border">
+                    <div class="border-corner corner-tl"></div>
+                    <div class="border-corner corner-tr"></div>
+                    <div class="border-corner corner-bl"></div>
+                    <div class="border-corner corner-br"></div>
+                </div>
+                
+                <!-- Floating Icon -->
+                <div class="stat-icon-float">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                
+                <!-- Progress Ring -->
+                <div class="stat-progress-ring">
+                    <svg width="80" height="80">
+                        <circle cx="40" cy="40" r="35" class="progress-bg"/>
+                        <circle cx="40" cy="40" r="35" class="progress-fill" data-progress="40"/>
+                    </svg>
+                </div>
+                
                 <span class="stat-number" data-count="2">0</span>
                 <div class="stat-label">Works Done</div>
+                
+                <!-- Particle Trail -->
+                <div class="stat-particles">
+                    <div class="particle p1"></div>
+                    <div class="particle p2"></div>
+                    <div class="particle p3"></div>
+                </div>
             </div>
+            
             <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="stat-border">
+                    <div class="border-corner corner-tl"></div>
+                    <div class="border-corner corner-tr"></div>
+                    <div class="border-corner corner-bl"></div>
+                    <div class="border-corner corner-br"></div>
+                </div>
+                
+                <div class="stat-icon-float">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                
+                <div class="stat-progress-ring">
+                    <svg width="80" height="80">
+                        <circle cx="40" cy="40" r="35" class="progress-bg"/>
+                        <circle cx="40" cy="40" r="35" class="progress-fill" data-progress="40"/>
+                    </svg>
+                </div>
+                
                 <span class="stat-number" data-count="2">0</span>
                 <div class="stat-label">Completed</div>
+                
+                <div class="stat-particles">
+                    <div class="particle p1"></div>
+                    <div class="particle p2"></div>
+                    <div class="particle p3"></div>
+                </div>
             </div>
+            
             <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="stat-border">
+                    <div class="border-corner corner-tl"></div>
+                    <div class="border-corner corner-tr"></div>
+                    <div class="border-corner corner-bl"></div>
+                    <div class="border-corner corner-br"></div>
+                </div>
+                
+                <div class="stat-icon-float">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                
+                <div class="stat-progress-ring">
+                    <svg width="80" height="80">
+                        <circle cx="40" cy="40" r="35" class="progress-bg"/>
+                        <circle cx="40" cy="40" r="35" class="progress-fill" data-progress="96"/>
+                    </svg>
+                </div>
+                
                 <span class="stat-number" data-count="100">0</span>
                 <div class="stat-label">Job Rate %</div>
+                
+                <div class="stat-particles">
+                    <div class="particle p1"></div>
+                    <div class="particle p2"></div>
+                    <div class="particle p3"></div>
+                </div>
             </div>
+            
             <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
+                <div class="stat-border">
+                    <div class="border-corner corner-tl"></div>
+                    <div class="border-corner corner-tr"></div>
+                    <div class="border-corner corner-bl"></div>
+                    <div class="border-corner corner-br"></div>
+                </div>
+                
+                <div class="stat-icon-float">
+                    <i class="fas fa-star"></i>
+                </div>
+                
+                <div class="stat-progress-ring">
+                    <svg width="80" height="80">
+                        <circle cx="40" cy="40" r="35" class="progress-bg"/>
+                        <circle cx="40" cy="40" r="35" class="progress-fill" data-progress="96"/>
+                    </svg>
+                </div>
+                
                 <span class="stat-number" data-count="100">0</span>
                 <div class="stat-label">Success Rate %</div>
+                
+                <div class="stat-particles">
+                    <div class="particle p1"></div>
+                    <div class="particle p2"></div>
+                    <div class="particle p3"></div>
+                </div>
             </div>
+        </div>
+        
+        <!-- Data Flow Animation -->
+        <div class="data-flow">
+            <div class="flow-particle flow-1"></div>
+            <div class="flow-particle flow-2"></div>
+            <div class="flow-particle flow-3"></div>
         </div>
     </section>
 
@@ -2379,50 +2797,11 @@
 
     <script>
         // SEAMLESS SCROLLING EXPERIENCE - Hide scrollbars but keep functionality
-        function initSeamlessScrolling() {
-            // Force hide all scrollbars with ultra-aggressive CSS
-            const style = document.createElement('style');
-            style.textContent = `
-                /* Ultra-hide scrollbars for seamless experience */
-                html::-webkit-scrollbar,
-                body::-webkit-scrollbar,
-                div::-webkit-scrollbar,
-                *::-webkit-scrollbar {
-                    display: none !important;
-                    width: 0 !important;
-                    height: 0 !important;
-                    background: transparent !important;
-                }
-                html, body, div, * {
-                    -ms-overflow-style: none !important;
-                    scrollbar-width: none !important;
-                }
-                /* Force seamless appearance */
-                body {
-                    overflow-y: auto !important;
-                    overflow-x: hidden !important;
-                }
-            `;
-            document.head.appendChild(style);
-            
-            // Ensure scroll functionality works perfectly
-            document.documentElement.style.overflow = 'auto';
-            document.documentElement.style.overflowY = 'auto';
-            document.body.style.overflow = 'auto';
-            document.body.style.overflowY = 'auto';
-            document.body.style.touchAction = 'auto';
-            
-            console.log('🚀 Seamless scrolling initialized - No scrollbars visible, full functionality retained');
-        }
-        
-        // Initialize seamless scrolling immediately
-        initSeamlessScrolling();
-        
         // 120fps Performance Configuration
         gsap.ticker.fps(120);
         gsap.config({ force3D: true });
           // Initialize GSAP with performance optimizations
-        gsap.registerPlugin(ScrollTrigger, TextPlugin, MotionPathPlugin);
+        gsap.registerPlugin(TextPlugin, MotionPathPlugin);
         
         // GUARANTEED LOADING SCREEN REMOVAL - Multiple failsafes
         document.addEventListener('DOMContentLoaded', function() {
@@ -2438,55 +2817,90 @@
             // setTimeout(forceRemoveLoadingScreen, 100);
         });
         
-        // FIXED LOADING SCREEN - GUARANTEED TO DISAPPEAR
-        let loadProgress = 0;
-        let loadingScreenRemoved = false;
-        const progressFill = document.getElementById('progressFill');
-        const loadingScreen = document.getElementById('loadingScreen');
-        const loadingPercentage = document.getElementById('loadingPercentage');
-        const progressLabel = document.getElementById('progressLabel');
-        const loadingQuote = document.getElementById('loadingQuote');
-        
-        // Array of inspiring quotes
-        const quotes = [
-            "Crafting digital excellence with innovative design",
-            "Where creativity meets cutting-edge technology", 
-            "Building tomorrow's digital experiences today",
-            "Transforming ideas into digital masterpieces",
-            "Innovation through design, excellence through code"
-        ];
-        
-        // Set random quote
-        if (loadingQuote) {
-            loadingQuote.textContent = quotes[Math.floor(Math.random() * quotes.length)];
-        }
-        
-        // Create floating particles (simplified)
-        function createFloatingParticles() {
-            const particlesContainer = document.getElementById('floatingParticles');
-            if (particlesContainer) {
-                for (let i = 0; i < 15; i++) {
-                    const particle = document.createElement('div');
-                    particle.className = 'particle';
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.animationDelay = Math.random() * 6 + 's';
-                    particlesContainer.appendChild(particle);
-                }
+        // --- MODERN LOADING SCREEN LOGIC ---
+(function() {
+    // Prevent scrolling/interactions until loaded
+    document.body.style.overflow = 'hidden';
+    document.body.style.pointerEvents = 'none';
+    document.body.classList.remove('loaded');
+
+    const loadingScreen = document.getElementById('loadingScreen');
+    const progressFill = document.getElementById('progressFill');
+    const loadingPercentage = document.getElementById('loadingPercentage');
+    const progressLabel = document.getElementById('progressLabel');
+    const loadingQuote = document.getElementById('loadingQuote');
+    const quotes = [
+        "Crafting digital excellence with innovative design",
+        "Where creativity meets cutting-edge technology", 
+        "Building tomorrow's digital experiences today",
+        "Transforming ideas into digital masterpieces",
+        "Innovation through design, excellence through code"
+    ];
+    if (loadingQuote) {
+        loadingQuote.textContent = quotes[Math.floor(Math.random() * quotes.length)];
+    }
+
+    // Animate progress
+    let progress = 0;
+    let fakeLoadSpeed = 1.2 + Math.random();
+    let interval = null;
+    function animateLoading() {
+        interval = setInterval(() => {
+            progress += Math.random() * fakeLoadSpeed;
+            if (progress > 99) progress = 99;
+            if (progressFill) progressFill.style.width = progress + '%';
+            if (loadingPercentage) loadingPercentage.textContent = Math.floor(progress) + '%';
+            if (progressLabel) progressLabel.textContent = progress < 30 ? 'Initializing...' : progress < 60 ? 'Loading Assets...' : progress < 90 ? 'Finalizing...' : 'Ready!';
+        }, 30);
+    }
+    animateLoading();
+
+    // Simulate real loading (replace with real asset loading if needed)
+    window.addEventListener('load', () => {
+        // Finish loading to 100% smoothly
+        clearInterval(interval);
+        let finish = setInterval(() => {
+            progress += 2.5;
+            if (progress > 100) progress = 100;
+            if (progressFill) progressFill.style.width = progress + '%';
+            if (loadingPercentage) loadingPercentage.textContent = Math.floor(progress) + '%';
+            if (progressLabel) progressLabel.textContent = progress < 100 ? 'Finalizing...' : 'Ready!';
+            if (progress >= 100) {
+                clearInterval(finish);
+                setTimeout(() => {
+                    // Animate out
+                    if (loadingScreen) {
+                        loadingScreen.style.transition = 'opacity 0.7s cubic-bezier(0.4,0,0.2,1)';
+                        loadingScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            loadingScreen.remove();
+                            document.body.classList.add('loaded');
+                            document.body.style.overflow = '';
+                            document.body.style.pointerEvents = '';
+                            // Optionally, trigger your app's main init here
+                            if (typeof initializeApp === 'function') initializeApp();
+                        }, 700);
+                    }
+                }, 400);
             }
+        }, 18);
+    });
+
+    // Failsafe: If something goes wrong, remove after 10s
+    setTimeout(() => {
+        if (loadingScreen && document.body.contains(loadingScreen)) {
+            loadingScreen.style.opacity = '0';
+            setTimeout(() => {
+                loadingScreen.remove();
+                document.body.classList.add('loaded');
+                document.body.style.overflow = '';
+                document.body.style.pointerEvents = '';
+                if (typeof initializeApp === 'function') initializeApp();
+            }, 700);
         }
-        
-        // Initialize particles
-        createFloatingParticles();
-        
-        // Progress labels
-        const progressLabels = [
-            "Initializing Experience",
-            "Loading Assets", 
-            "Preparing Interface",
-            "Almost Ready",
-            "Ready!"
-        ];
-        
+    }, 10000);
+})();
+
         // FIXED: Force loading screen to disappear after maximum time
         function forceRemoveLoadingScreen() {
             if (loadingScreenRemoved) return; // Prevent multiple calls
@@ -2551,8 +2965,7 @@
         }, 80); // Faster updates for quicker loading
         
         function initializeApp() {
-            // Re-initialize seamless scrolling to ensure it's active
-            initSeamlessScrolling();
+            // Re-initialize animations
             
             // Enhanced AOS with 120fps support
             AOS.init({
@@ -2628,15 +3041,8 @@
                 },
                 interactivity: {
                     detect_on: "canvas",
-                    events: { 
-                        onhover: { enable: true, mode: "repulse" }, 
-                        onclick: { enable: true, mode: "push" }, 
-                        resize: true 
-                    },
-                    modes: { 
-                        repulse: { distance: 80, duration: 0.4 }, 
-                        push: { particles_nb: 2 } 
-                    }
+                    events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true },
+                    modes: { repulse: { distance: 80, duration: 0.4 }, push: { particles_nb: 2 } }
                 },
                 retina_detect: true
             });
@@ -2682,24 +3088,20 @@
             statNumbers.forEach(stat => {
                 const target = parseInt(stat.dataset.count);
                 
-                ScrollTrigger.create({
-                    trigger: stat,
-                    start: "top 80%",
-                    onEnter: () => {
-                        gsap.fromTo(stat, 
-                            { textContent: 0 },
-                            {
-                                textContent: target,
-                                duration: 2,
-                                ease: "power2.out",
-                                snap: { textContent: 1 }
-                            }
-                        );
+                // Simple animation without scroll trigger
+                gsap.fromTo(stat, 
+                    { textContent: 0 },
+                    {
+                        textContent: target,
+                        duration: 2,
+                        ease: "power2.out",
+                        snap: { textContent: 1 },
+                        delay: 1
                     }
-                });
+                );
             });
 
-            // Enhanced scroll animations
+            // Enhanced animations
             gsap.utils.toArray('.service-item').forEach((item, i) => {
                 gsap.fromTo(item, 
                     { 
@@ -2713,32 +3115,13 @@
                         rotationX: 0,
                         duration: 1.2,
                         ease: "power3.out",
-                        scrollTrigger: {
-                            trigger: item,
-                            start: "top 85%",
-                            end: "bottom 20%",
-                            toggleActions: "play none none reverse"
-                        },
                         delay: i * 0.1
                     }
                 );
             });
         }
 
-        // Continue with additional functions outside initializeApp
-        function setupAdditionalAnimations() {
-            AOS.init({
-                duration: 1200,
-                once: true,
-                offset: 100,
-                easing: 'ease-out-cubic'
-            });
-
-            // Initialize Splitting for text animations
-            Splitting();
-
-            // Initialize Advanced Text Animations
-            gsap.registerPlugin(ScrollTrigger, TextPlugin);            // Enhanced title animation with morphing effect
+        // Continue with additional functions outside initializeApp            // Enhanced title animation with morphing effect
             const mainHeroTitle = document.getElementById('heroTitle');
             const chars = mainHeroTitle.textContent.split('');
             mainHeroTitle.innerHTML = chars.map(char => `<span class="char">${char}</span>`).join('');
@@ -2903,31 +3286,19 @@
                 heroTitle.appendChild(span);
             });
 
-            // Hero Title Scroll Animation
+            // Hero Title Animation (without scroll trigger)
             gsap.to('.split-char', {
-                scrollTrigger: {
-                    trigger: '.hero',
-                    start: 'top top',
-                    end: 'bottom center',
-                    scrub: true
-                },
-                y: -100,
-                opacity: 0,
+                y: -20,
+                opacity: 1,
                 stagger: 0.02,
-                ease: "power2.out"
+                ease: "power2.out",
+                delay: 1
             });
 
             // Title Glitch Effect on Hover
             heroTitle.addEventListener('mouseenter', () => {
                 heroTitle.classList.add('glitch');
                 setTimeout(() => heroTitle.classList.remove('glitch'), 300);
-            });
-
-            // Scroll Progress Indicator
-            const scrollIndicator = document.getElementById('scrollIndicator');
-            window.addEventListener('scroll', () => {
-                const scrollProgress = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-                scrollIndicator.style.width = scrollProgress + '%';
             });
         }
 
@@ -3333,6 +3704,161 @@
                     feather.replace();
                 }
             });
+        
+        // Enhanced Stats Section with Sound Effects
+        function initializeStatsSection() {
+            // Create Audio Context for sound effects
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // Sound effect functions
+            function playCounterSound(frequency = 800, duration = 100) {
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = frequency;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration / 1000);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration / 1000);
+            }
+            
+            function playHoverSound() {
+                playCounterSound(1200, 50);
+            }
+            
+            function playCompleteSound() {
+                playCounterSound(600, 200);
+            }
+            
+            // Animated counter function
+            function animateCounter(element, target, duration = 2000) {
+                const start = 0;
+                const startTime = performance.now();
+                
+                function update(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    // Easing function for smooth animation
+                    const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                    const current = Math.round(start + (target - start) * easeOutQuart);
+                    
+                    element.textContent = current;
+                    
+                    // Play sound effect every 10 units
+                    if (current % 10 === 0 && current > 0 && progress < 1) {
+                        playCounterSound(400 + current * 10, 30);
+                    }
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    } else {
+                        playCompleteSound();
+                    }
+                }
+                
+                requestAnimationFrame(update);
+            }
+            
+            // Animate progress rings
+            function animateProgressRing(circle, targetProgress) {
+                const circumference = 2 * Math.PI * 35; // radius = 35
+                const strokeDasharray = circumference;
+                const strokeDashoffset = circumference - (targetProgress / 100) * circumference;
+                
+                circle.style.strokeDasharray = strokeDasharray;
+                circle.style.strokeDashoffset = strokeDashoffset;
+                circle.style.transition = 'stroke-dashoffset 2s ease-out';
+            }
+            
+            // Initialize stats when in viewport
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const statItem = entry.target;
+                        const numberElement = statItem.querySelector('.stat-number');
+                        const progressCircle = statItem.querySelector('.progress-fill');
+                        const targetCount = parseInt(numberElement.getAttribute('data-count'));
+                        const targetProgress = parseInt(progressCircle.getAttribute('data-progress'));
+                        
+                        // Start counter animation
+                        setTimeout(() => {
+                            animateCounter(numberElement, targetCount);
+                        }, 300);
+                        
+                        // Start progress ring animation
+                        setTimeout(() => {
+                            animateProgressRing(progressCircle, targetProgress);
+                        }, 500);
+                        
+                        // Unobserve after animation
+                        observer.unobserve(statItem);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            // Observe all stat items
+            document.querySelectorAll('.stat-item').forEach(item => {
+                observer.observe(item);
+                
+                // Add hover sound effects
+                item.addEventListener('mouseenter', playHoverSound);
+                
+                // Add click to replay animation
+                item.addEventListener('click', () => {
+                    const numberElement = item.querySelector('.stat-number');
+                    const progressCircle = item.querySelector('.progress-fill');
+                    const targetCount = parseInt(numberElement.getAttribute('data-count'));
+                    const targetProgress = parseInt(progressCircle.getAttribute('data-progress'));
+                    
+                    // Reset and replay
+                    numberElement.textContent = '0';
+                    progressCircle.style.strokeDashoffset = '220';
+                    
+                    setTimeout(() => {
+                        animateCounter(numberElement, targetCount, 1000);
+                        animateProgressRing(progressCircle, targetProgress);
+                    }, 100);
+                });
+            });
+            
+            // Create floating particles for each stat item
+            function createStatParticles() {
+                document.querySelectorAll('.stat-particles').forEach(container => {
+                    // Clear existing particles
+                    container.innerHTML = '';
+                    
+                    // Create new particles
+                    for (let i = 0; i < 3; i++) {
+                        const particle = document.createElement('div');
+                        particle.className = `particle p${i + 1}`;
+                        container.appendChild(particle);
+                    }
+                });
+            }
+            
+            // Initialize particles
+            createStatParticles();
+            
+            // Recreate particles periodically
+            setInterval(createStatParticles, 4000);
+        }
+        
+        // Initialize enhanced stats when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(initializeStatsSection, 1000);
+        });
+        
+        // ...existing code...
     </script>
 </body>
 </html>
