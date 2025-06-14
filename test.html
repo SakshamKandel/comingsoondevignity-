@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Page - INFACES</title>
+    <style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #0A0F0A;
+            color: #BFFF00;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .status {
+            background: rgba(191, 255, 0, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .error {
+            background: rgba(255, 0, 0, 0.1);
+            color: #ff6b6b;
+        }
+        .success {
+            background: rgba(0, 255, 0, 0.1);
+            color: #4ade80;
+        }
+        a {
+            color: #BFFF00;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .card {
+            background: rgba(191, 255, 0, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(191, 255, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 INFACES Test Page</h1>
+        
+        <div class="status success">
+            <h3>✅ Server Status: Running</h3>
+            <p>Your local server is working correctly!</p>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <h4>📄 Main Website</h4>
+                <p><a href="/">Go to Main Site</a></p>
+            </div>
+            
+            <div class="card">
+                <h4>🔧 Server Info</h4>
+                <p>Port: 3000<br>
+                Protocol: HTTP<br>
+                Status: Active</p>
+            </div>
+            
+            <div class="card">
+                <h4>🎨 Features</h4>
+                <p>GSAP Animations<br>
+                Custom Cursor<br>
+                Story Modals</p>
+            </div>
+            
+            <div class="card">
+                <h4>📱 Compatibility</h4>
+                <p>Modern Browsers<br>
+                Mobile Responsive<br>
+                Touch Friendly</p>
+            </div>
+        </div>
+        
+        <div class="status">
+            <h3>🔍 Debug Information</h3>
+            <div id="debug-info">
+                <p>Loading debug info...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Debug information
+        const debugDiv = document.getElementById('debug-info');
+        const debugInfo = [
+            `User Agent: ${navigator.userAgent}`,
+            `Screen Resolution: ${window.screen.width}x${window.screen.height}`,
+            `Viewport: ${window.innerWidth}x${window.innerHeight}`,
+            `JavaScript Enabled: ✅`,
+            `Local Storage: ${typeof Storage !== 'undefined' ? '✅' : '❌'}`,
+            `Timestamp: ${new Date().toLocaleString()}`
+        ];
+        
+        debugDiv.innerHTML = debugInfo.map(info => `<p>${info}</p>`).join('');
+        
+        // Test GSAP loading
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
+        script.onload = function() {
+            debugDiv.innerHTML += '<p style="color: #4ade80;">GSAP Library: ✅ Loaded Successfully</p>';
+        };
+        script.onerror = function() {
+            debugDiv.innerHTML += '<p style="color: #ff6b6b;">GSAP Library: ❌ Failed to Load</p>';
+        };
+        document.head.appendChild(script);
+    </script>
+</body>
+</html>

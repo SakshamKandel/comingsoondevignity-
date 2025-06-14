@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFACES - Digital Memories</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Basic Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #0A0F0A;
+            color: #FFFFFF;
+            line-height: 1.6;
+            font-weight: 400;
+            overflow-x: hidden;
+        }
+        
+        /* Geometric Background */
+        .geometric-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(191, 255, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(191, 255, 0, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.3;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 3rem;
+            z-index: 1000;
+            background: transparent;
+        }
+        
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-left {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .nav-edition {
+            color: #BFFF00;
+            font-weight: 500;
+        }
+        
+        .nav-theme {
+            color: #999999;
+        }
+        
+        .nav-about {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .theme-label {
+            color: #999999;
+        }
+        
+        .toggle-option {
+            color: #999999;
+            cursor: pointer;
+        }
+        
+        .toggle-option.active {
+            color: #BFFF00;
+            font-weight: 600;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 0 3rem;
+            text-align: center;
+        }
+        
+        .hero-container {
+            max-width: 1400px;
+            width: 100%;
+        }
+        
+        .hero-brand {
+            margin-bottom: 6rem;
+        }
+        
+        .brand-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 700;
+            color: #BFFF00;
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+            margin: 0;
+            text-transform: lowercase;
+        }
+        
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .hero-headline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 3.5rem);
+            font-weight: 600;
+            color: #BFFF00;
+            line-height: 1.2;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+        }
+        
+        .hero-description {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .description-text {
+            font-size: 1.1rem;
+            color: #FFFFFF;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+        
+        /* Stories Section */
+        .stories {
+            padding: 8rem 3rem;
+        }
+        
+        .stories-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            color: #BFFF00;
+            text-transform: lowercase;
+        }
+        
+        .section-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
+        }
+        
+        .meta-edition {
+            font-size: 0.9rem;
+            color: #BFFF00;
+            font-weight: 600;
+        }
+        
+        .meta-theme {
+            font-size: 1.1rem;
+            color: #FFFFFF;
+            font-weight: 500;
+        }
+        
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .story-card {
+            background: #1A1F1A;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(191, 255, 0, 0.1);
+        }
+        
+        .story-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .story-image {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .story-overlay {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 50px;
+            height: 50px;
+            background: rgba(191, 255, 0, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .story-number {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0A0F0A;
+        }
+        
+        .story-info {
+            padding: 1.5rem;
+        }
+        
+        .story-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin-bottom: 0.5rem;
+        }
+        
+        .story-excerpt {
+            font-size: 0.9rem;
+            color: #999999;
+            line-height: 1.5;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero {
+                padding: 0 1rem;
+                min-height: 90vh;
+            }
+            
+            .stories {
+                padding: 4rem 2rem;
+            }
+            
+            .stories-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Geometric Background -->
+    <div class="geometric-bg">
+        <div class="grid-overlay"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-left">
+                <span class="nav-edition">Edition #1</span>
+                <span class="nav-theme">Childhood</span>
+            </div>
+            <div class="nav-center">
+                <a href="#" class="nav-about">About</a>
+            </div>
+            <div class="nav-right">
+                <div class="theme-toggle">
+                    <span class="theme-label">Light mode:</span>
+                    <div class="toggle-switch">
+                        <span class="toggle-option active">On</span>
+                        <span class="toggle-option">Off</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-brand">
+                <h1 class="brand-title">infaces</h1>
+            </div>
+            
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2 class="hero-headline">
+                        <span class="headline-line">TOGETHER WITH OUR HEROES, WE</span><br>
+                        <span class="headline-line">REMEMBER THE HAPPY MOMENTS OF OUR</span><br>
+                        <span class="headline-line">LIVES, LOVED ONES, PLEASANT</span><br>
+                        <span class="headline-line">IMPRESSIONS.</span>
+                    </h2>
+                </div>
+                
+                <div class="hero-description">
+                    <p class="description-text">
+                        These old and new photographs are evidence of history, culture, family and personal experience. 
+                        They help us track where we came from, who we are and who we can become.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stories Section -->
+    <section class="stories" id="stories">
+        <div class="stories-container">
+            <div class="section-header">
+                <h2 class="section-title">Stories</h2>
+                <div class="section-meta">
+                    <span class="meta-edition">Edition #1</span>
+                    <span class="meta-theme">Childhood</span>
+                </div>
+            </div>
+            
+            <div class="stories-grid">
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=600&fit=crop&crop=face" alt="Miroslav Bochkarev">
+                        <div class="story-overlay">
+                            <div class="story-number">01</div>
+                        </div>
+                    </div>
+                    <div class="story-info">
+                        <h3 class="story-name">Miroslav Bochkarev</h3>
+                        <p class="story-excerpt">A story of childhood dreams and aspirations...</p>
+                    </div>
+                </div>
+                
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=600&fit=crop&crop=face" alt="Stefano Mazzaferro">
+                        <div class="story-overlay">
+                            <div class="story-number">02</div>
+                        </div>
+                    </div>
+                    <div class="story-info">
+                        <h3 class="story-name">Stefano Mazzaferro</h3>
+                        <p class="story-excerpt">Growing up in Italy with passion...</p>
+                    </div>
+                </div>
+                
+                <div class="story-card">
+                    <div class="story-image">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616c2c9dfd4?w=400&h=600&fit=crop&crop=face" alt="Natalia Goldman">
+                        <div class="story-overlay">
+                            <div class="story-number">03</div>
+                        </div>
+                    </div>
+                    <div class="story-info">
+                        <h3 class="story-name">Natalia Goldman</h3>
+                        <p class="story-excerpt">A journey through childhood wonder...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        console.log('✅ Simple version loaded successfully');
+        
+        // Basic hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const storyCards = document.querySelectorAll('.story-card');
+            
+            storyCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    alert('Story card clicked! Full modal functionality will be in the complete version.');
+                });
+            });
+            
+            console.log('✅ Basic interactions loaded');
+        });
+    </script>
+</body>
+</html>
