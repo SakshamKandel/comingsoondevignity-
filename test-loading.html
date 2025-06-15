@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Test</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        body.loaded {
+            overflow: auto;
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #000000 0%, #0A0A0A 50%, #000000 100%);
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .loading-content {
+            text-align: center;
+            color: white;
+        }
+        
+        .loading-logo {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #00FF88, #7B61FF, #FFD600);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+        }
+        
+        .modern-progress {
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 2rem 0 1rem 0;
+        }
+        
+        .modern-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00FF88, #7B61FF, #FFD600);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .main-content {
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .main-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">DEVIGNITY</div>
+            <div class="progress-label" id="progressLabel">Initializing...</div>
+            <div class="modern-progress">
+                <div class="modern-progress-fill" id="progressFill"></div>
+            </div>
+            <div class="loading-percentage" id="loadingPercentage">0%</div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <h1>Welcome to Devignity!</h1>
+        <p>The loading screen should have disappeared by now.</p>
+        <p>If you see this, the loading screen fix is working!</p>
+    </div>
+
+    <script>
+        console.log('🚀 Loading test started');
+        
+        let loadingRemoved = false;
+        
+        function removeLoadingScreen() {
+            if (loadingRemoved) return;
+            loadingRemoved = true;
+            
+            const screen = document.getElementById('loadingScreen');
+            if (screen) {
+                console.log('🔄 Removing loading screen...');
+                screen.style.transition = 'opacity 0.5s ease-out';
+                screen.style.opacity = '0';
+                
+                setTimeout(() => {
+                    if (screen.parentNode) {
+                        screen.parentNode.removeChild(screen);
+                    }
+                    document.body.classList.add('loaded');
+                    console.log('✅ Loading complete!');
+                }, 500);
+            }
+        }
+        
+        // Start loading animation immediately
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('📄 DOM loaded, starting progress...');
+            
+            const progressFill = document.getElementById('progressFill');
+            const loadingPercentage = document.getElementById('loadingPercentage');
+            const progressLabel = document.getElementById('progressLabel');
+            
+            let progress = 0;
+            
+            // Animate progress bar
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 5 + 2; // Random increment between 2-7
+                if (progress > 100) progress = 100;
+                
+                if (progressFill) progressFill.style.width = progress + '%';
+                if (loadingPercentage) loadingPercentage.textContent = Math.floor(progress) + '%';
+                
+                // Update label based on progress
+                if (progressLabel) {
+                    if (progress < 30) progressLabel.textContent = 'Initializing...';
+                    else if (progress < 60) progressLabel.textContent = 'Loading Assets...';
+                    else if (progress < 90) progressLabel.textContent = 'Almost Ready...';
+                    else progressLabel.textContent = 'Ready!';
+                }
+                
+                console.log(`📊 Progress: ${Math.floor(progress)}%`);
+                
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    console.log('🎯 Progress complete, removing screen...');
+                    setTimeout(removeLoadingScreen, 500);
+                }
+            }, 100); // Update every 100ms for better visibility
+        });
+        
+        // Emergency failsafe - remove after 3 seconds no matter what
+        setTimeout(() => {
+            const screen = document.getElementById('loadingScreen');
+            if (screen) {
+                console.log('🚨 Emergency loading screen removal');
+                screen.style.display = 'none';
+                document.body.classList.add('loaded');
+            }
+        }, 3000);
+        
+        console.log('🔧 All loading logic initialized');
+    </script>
+</body>
+</html>

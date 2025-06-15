@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instant Loading Fix</title>
+    <style>
+        body { margin: 0; font-family: Arial, sans-serif; background: #000; color: #fff; }
+        .loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: linear-gradient(135deg, #000000 0%, #0A0A0A 50%, #000000 100%); z-index: 999999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .loading-logo { font-size: 4rem; font-weight: 900; background: linear-gradient(45deg, #00FF88, #7B61FF, #FFD600); background-size: 300% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 2rem; animation: gradient 2s ease infinite; }
+        @keyframes gradient { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .modern-progress { width: 300px; height: 4px; background: rgba(255, 255, 255, 0.1); border-radius: 4px; overflow: hidden; margin: 2rem 0 1rem 0; }
+        .modern-progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #00FF88, #7B61FF, #FFD600); border-radius: 4px; transition: width 0.1s ease; }
+        .main-content { padding: 2rem; text-align: center; display: none; }
+        .main-content.show { display: block; }
+        .main-content h1 { font-size: 3rem; margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">DEVIGNITY</div>
+        <div id="progressLabel">Initializing Experience</div>
+        <div class="modern-progress">
+            <div class="modern-progress-fill" id="progressFill"></div>
+        </div>
+        <div id="loadingPercentage">0%</div>
+    </div>
+
+    <div class="main-content" id="mainContent">
+        <h1>🎉 SUCCESS!</h1>
+        <p>Loading screen working perfectly!</p>
+        <p>The animation completed and this content is now visible.</p>
+    </div>
+
+    <script>
+        console.log('🚀 Instant loading script starting...');
+        
+        // Execute immediately - no delays
+        const progressFill = document.getElementById('progressFill');
+        const loadingPercentage = document.getElementById('loadingPercentage');
+        const progressLabel = document.getElementById('progressLabel');
+        const loadingScreen = document.getElementById('loadingScreen');
+        const mainContent = document.getElementById('mainContent');
+        
+        let progress = 0;
+        
+        console.log('📊 Starting progress animation...');
+        
+        const interval = setInterval(() => {
+            progress += 5; // 5% increments
+            if (progress > 100) progress = 100;
+            
+            // Update UI
+            progressFill.style.width = progress + '%';
+            loadingPercentage.textContent = progress + '%';
+            
+            // Update label
+            if (progress < 30) progressLabel.textContent = 'Initializing...';
+            else if (progress < 60) progressLabel.textContent = 'Loading Assets...';
+            else if (progress < 90) progressLabel.textContent = 'Almost Ready...';
+            else progressLabel.textContent = 'Ready!';
+            
+            console.log(`Progress: ${progress}%`);
+            
+            if (progress >= 100) {
+                clearInterval(interval);
+                console.log('✅ Animation complete!');
+                
+                setTimeout(() => {
+                    loadingScreen.style.opacity = '0';
+                    loadingScreen.style.transition = 'opacity 0.5s ease';
+                    
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        mainContent.classList.add('show');
+                        console.log('🎯 Loading screen removed successfully!');
+                    }, 500);
+                }, 300);
+            }
+        }, 100); // Update every 100ms
+        
+        console.log('✅ Script loaded and running');
+    </script>
+</body>
+</html>

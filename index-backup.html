@@ -2805,277 +2805,781 @@
     </div>
 
     <script>
-        console.log('🚀 DEVIGNITY - CLEAN INITIALIZATION');
-        
-        // ===== CORE FUNCTIONS - BULLETPROOF IMPLEMENTATION =====
-        
-        // 1. COUNTDOWN TIMER - SIMPLIFIED AND RELIABLE
-        function startCountdown() {
-            console.log('⏰ Starting countdown timer...');
-            
-            function updateTime() {
-                try {
-                    const now = new Date().getTime();
-                    const target = new Date('2025-12-31 23:59:59').getTime();
-                    const timeLeft = target - now;
+        // 240fps Performance Configuration - Ultra Smooth
+        gsap.ticker.fps(240);
+        gsap.config({ 
+            force3D: true,
+            nullTargetWarn: false,
+            trialWarn: false
+        });
+        // Initialize GSAP with performance optimizations
+        gsap.registerPlugin(TextPlugin, MotionPathPlugin, ScrollTrigger);
 
-                    if (timeLeft > 0) {
-                        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        // ===== ENHANCED SCROLL-TRIGGERED ANIMATIONS =====
+        
+        // Hero section entrance animation with stagger effects
+        gsap.timeline({ delay: 0.5 })
+            .from('.hero-badge', { 
+                duration: 1, 
+                y: -50, 
+                opacity: 0, 
+                ease: "elastic.out(1, 0.8)" 
+            })
+            .from('.hero-title .split-char', { 
+                duration: 1.2, 
+                y: 100, 
+                opacity: 0, 
+                rotationX: -90,
+                stagger: 0.02, 
+                ease: "back.out(1.7)" 
+            }, "-=0.5")
+            .from('.hero-subtitle', { 
+                duration: 1, 
+                y: 50, 
+                opacity: 0, 
+                ease: "power3.out" 
+            }, "-=0.8")
+            .from('.instagram-btn', { 
+                duration: 1, 
+                scale: 0.5, 
+                opacity: 0, 
+                ease: "back.out(2)" 
+            }, "-=0.4");
 
-                        const daysEl = document.getElementById('days');
-                        const hoursEl = document.getElementById('hours');
-                        const minutesEl = document.getElementById('minutes');
-                        const secondsEl = document.getElementById('seconds');
-                        
-                        if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-                        if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-                        if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
-                        if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
-                        
-                        console.log(`⏰ ${days}d ${hours}h ${minutes}m ${seconds}s`);
-                    } else {
-                        document.querySelectorAll('.countdown-number').forEach(num => num.textContent = '🚀');
-                        const titleEl = document.querySelector('.countdown-title');
-                        if (titleEl) titleEl.textContent = 'We Are Live!';
+        // Services section - Advanced scroll animations
+        ScrollTrigger.batch('.service-item', {
+            onEnter: (elements) => {
+                gsap.fromTo(elements, {
+                    y: 100,
+                    opacity: 0,
+                    scale: 0.8,
+                    rotation: 5,
+                    transformOrigin: "center center"
+                }, {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    rotation: 0,
+                    duration: 1.2,
+                    ease: "elastic.out(1, 0.8)",
+                    stagger: 0.15
+                });
+                
+                // Animate service icons separately for extra flair
+                gsap.fromTo(elements, {
+                    ".service-icon": { scale: 0, rotation: 180 }
+                }, {
+                    ".service-icon": { 
+                        scale: 1, 
+                        rotation: 0, 
+                        duration: 0.8, 
+                        ease: "back.out(2)",
+                        delay: 0.3 
                     }
-                } catch (e) {
-                    console.log('Countdown update failed:', e);
-                }
+                });
+            },
+            onLeave: (elements) => {
+                gsap.to(elements, {
+                    y: -30,
+                    opacity: 0.5,
+                    scale: 0.95,
+                    duration: 0.5,
+                    stagger: 0.1
+                });
+            },
+            onEnterBack: (elements) => {
+                gsap.to(elements, {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.6,
+                    ease: "power2.out",
+                    stagger: 0.1
+                });
             }
+        });
+
+        // Features section - 3D rotation animations
+        ScrollTrigger.batch('.feature-card', {
+            onEnter: (elements) => {
+                gsap.fromTo(elements, {
+                    scale: 0.3,
+                    opacity: 0,
+                    rotationY: 180,
+                    z: -100
+                }, {
+                    scale: 1,
+                    opacity: 1,
+                    rotationY: 0,
+                    z: 0,
+                    duration: 1.5,
+                    ease: "power3.out",
+                    stagger: 0.2
+                });
+            }
+        });
+
+        // ===== ENHANCED STATS COUNTER WITH VISUAL EFFECTS =====
+        
+        function initAdvancedStatsCounter() {
+            const statNumbers = document.querySelectorAll('.stat-number');
             
-            updateTime();
-            setInterval(updateTime, 1000);
-            console.log('✅ Countdown initialized');
+            statNumbers.forEach((stat, index) => {
+                const target = parseInt(stat.getAttribute('data-count'));
+                const isPercentage = stat.parentNode.querySelector('.stat-label').textContent.includes('%');
+                
+                // Initialize CountUp with advanced options
+                const counter = new CountUp(stat, target, {
+                    startVal: 0,
+                    duration: 3,
+                    separator: '',
+                    suffix: isPercentage ? '%' : '',
+                    useGrouping: false,
+                    useEasing: true,
+                    smartEasingThreshold: 999,
+                    smartEasingAmount: 333,
+                    enableScrollSpy: false // We'll control this manually
+                });
+
+                // Custom counter with enhanced visual effects
+                let currentValue = 0;
+                const increment = target / 120; // 2 seconds at 60fps
+                
+                function animateCounter() {
+                    currentValue += increment;
+                    if (currentValue >= target) {
+                        currentValue = target;
+                    }
+                    
+                    stat.textContent = Math.floor(currentValue) + (isPercentage ? '%' : '');
+                    
+                    // Add glow effect during counting
+                    stat.style.textShadow = `0 0 ${20 + Math.sin(currentValue / 10) * 10}px rgba(0, 255, 136, 0.8)`;
+                    
+                    if (currentValue < target) {
+                        requestAnimationFrame(animateCounter);
+                    } else {
+                        // Final glow effect
+                        gsap.to(stat, {
+                            textShadow: "0 0 30px rgba(0, 255, 136, 0.4)",
+                            duration: 1,
+                            ease: "power2.out"
+                        });
+                    }
+                }
+                
+                // Store the animation function for later use
+                stat.animateCounter = animateCounter;
+            });
         }
 
-        // 2. THEME TOGGLE - SIMPLE AND RELIABLE
-        function setupTheme() {
-            console.log('🎨 Setting up theme toggle...');
+        // Stats section - Complete visual overhaul with scroll trigger
+        ScrollTrigger.create({
+            trigger: '.stats-section',
+            start: 'top 80%',
+            onEnter: () => {
+                // Animate stat containers with advanced effects
+                gsap.fromTo('.stat-item', {
+                    y: 150,
+                    opacity: 0,
+                    scale: 0.6,
+                    rotationY: 45
+                }, {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    rotationY: 0,
+                    duration: 1.5,
+                    ease: "power3.out",
+                    stagger: 0.2,
+                    onComplete: () => {
+                        // Start counters after containers are visible
+                        document.querySelectorAll('.stat-number').forEach(stat => {
+                            if (stat.animateCounter) {
+                                setTimeout(stat.animateCounter, Math.random() * 500);
+                            }
+                        });
+                    }
+                });
+
+                // Animate floating geometric elements
+                gsap.fromTo('.floating-geometric', {
+                    scale: 0,
+                    rotation: 0,
+                    opacity: 0
+                }, {
+                    scale: 1,
+                    rotation: 360,
+                    opacity: 1,
+                    duration: 2.5,
+                    ease: "elastic.out(1, 0.8)",
+                    stagger: 0.3
+                });
+
+                // Animate energy waves
+                gsap.fromTo('.energy-wave', {
+                    scaleX: 0,
+                    opacity: 0
+                }, {
+                    scaleX: 1,
+                    opacity: 1,
+                    duration: 1.5,
+                    ease: "power2.out",
+                    stagger: 0.5
+                });
+
+                // Animate connecting lines with flowing effect
+                gsap.fromTo('.connection-line', {
+                    strokeDasharray: "0, 1000",
+                    opacity: 0
+                }, {
+                    strokeDasharray: "10, 5",
+                    opacity: 0.6,
+                    duration: 2,
+                    ease: "power2.out",
+                    stagger: 0.3
+                });
+
+                // Animate progress rings
+                gsap.to('.stat-progress-ring .progress-fill', {
+                    strokeDashoffset: (index, target) => {
+                        const progress = target.getAttribute('data-progress');
+                        return 220 - (220 * progress) / 100;
+                    },
+                    duration: 2.5,
+                    ease: "power3.out",
+                    stagger: 0.2
+                });
+
+                // Animate corner borders
+                gsap.fromTo('.border-corner', {
+                    scale: 0,
+                    opacity: 0
+                }, {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 1,
+                    ease: "back.out(2)",
+                    stagger: 0.1
+                });
+
+                // Animate floating icons with bounce
+                gsap.fromTo('.stat-icon-float', {
+                    scale: 0,
+                    rotation: 180,
+                    y: -50
+                }, {
+                    scale: 1,
+                    rotation: 0,
+                    y: 0,
+                    duration: 1.5,
+                    ease: "bounce.out",
+                    stagger: 0.1
+                });
+            }
+        });
+
+        // Countdown section - Enhanced animation
+        ScrollTrigger.create({
+            trigger: '.countdown-section',
+            start: 'top 80%',
+            onEnter: () => {
+                gsap.fromTo('.countdown-item', {
+                    rotationY: 90,
+                    opacity: 0,
+                    scale: 0.5,
+                    z: -100
+                }, {
+                    rotationY: 0,
+                    opacity: 1,
+                    scale: 1,
+                    z: 0,
+                    duration: 1.2,
+                    ease: "power3.out",
+                    stagger: 0.15
+                });
+                
+                // Add bounce animation to countdown numbers
+                gsap.to('.countdown-number', {
+                    scale: 1.1,
+                    duration: 0.3,
+                    ease: "power2.out",
+                    stagger: 0.1,
+                    repeat: 1,
+                    yoyo: true,
+                    delay: 1
+                });
+            }
+        });
+
+        // Progress bars with advanced animation
+        ScrollTrigger.create({
+            trigger: '.progress-section',
+            start: 'top 80%',
+            onEnter: () => {
+                gsap.to('.progress-bar-fill', {
+                    width: (index, target) => target.dataset.width + '%',
+                    duration: 2,
+                    ease: "elastic.out(1, 0.8)",
+                    stagger: 0.3
+                });
+            }
+        });
+
+        // Continuous parallax animations for floating elements
+        gsap.to('.floating-geometric', {
+            y: (index) => -30 - (index * 10),
+            rotation: 360,
+            duration: 8 + (Math.random() * 4),
+            ease: "none",
+            repeat: -1,
+            yoyo: true,
+            stagger: 1.5
+        });
+
+        // Initialize stats counter system
+        initAdvancedStatsCounter();
+
+        // Enhanced scroll indicator with smooth progress
+        function updateScrollIndicator() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
             
-            const btn = document.getElementById('themeToggle');
-            if (!btn) {
-                console.error('Theme button not found');
-                return;
+            const indicator = document.getElementById('scrollIndicator');
+            if (indicator) {
+                indicator.style.width = scrollPercent + '%';
             }
+        }
 
-            // Load saved theme
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme === 'light') {
-                document.body.classList.add('light-theme');
-                btn.innerHTML = '<i class="fas fa-sun"></i>';
+        window.addEventListener('scroll', updateScrollIndicator);
+
+        // Theme toggle with enhanced animation - FIXED VERSION
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('theme');
+
+        // Initialize theme on page load
+        if (currentTheme === 'light') {
+            document.body.classList.add('light-theme');
+            if (themeToggle) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
             }
+        }
 
-            // Toggle functionality
-            btn.onclick = function() {
+        if (themeToggle) {
+            themeToggle.addEventListener('click', function() {
+                console.log('🎨 Theme toggle clicked');
+                
+                // Add rotation animation to toggle button
+                themeToggle.style.transform = 'rotate(360deg) scale(1.2)';
+                themeToggle.style.transition = 'transform 0.5s ease';
+                
+                setTimeout(() => {
+                    themeToggle.style.transform = 'scale(1)';
+                }, 500);
+
+                // Toggle theme
                 document.body.classList.toggle('light-theme');
                 
                 if (document.body.classList.contains('light-theme')) {
-                    btn.innerHTML = '<i class="fas fa-sun"></i>';
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
                     localStorage.setItem('theme', 'light');
-                    console.log('☀️ Light theme activated');
+                    console.log('🌞 Switched to light theme');
                 } else {
-                    btn.innerHTML = '<i class="fas fa-moon"></i>';
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
                     localStorage.setItem('theme', 'dark');
-                    console.log('🌙 Dark theme activated');
+                    console.log('🌙 Switched to dark theme');
                 }
-            };
-            
-            console.log('✅ Theme toggle ready');
-        }
-
-        // 3. STATS ANIMATION - RELIABLE VERSION
-        function animateStats() {
-            console.log('📊 Animating stats...');
-            
-            const statElements = document.querySelectorAll('.stat-number');
-            
-            statElements.forEach(el => {
-                const target = parseInt(el.getAttribute('data-count')) || 0;
-                let current = 0;
-                const increment = target / 100; // 100 steps
-                
-                function count() {
-                    current += increment;
-                    if (current >= target) {
-                        current = target;
-                    }
-                    
-                    const suffix = el.textContent.includes('%') ? '%' : '';
-                    el.textContent = Math.floor(current) + suffix;
-                    
-                    if (current < target) {
-                        requestAnimationFrame(count);
-                    }
-                }
-                
-                setTimeout(count, Math.random() * 500);
             });
-            
-            console.log('✅ Stats animated');
+        } else {
+            console.error('❌ Theme toggle button not found');
         }
 
-        // 4. PARTICLES - SIMPLE VERSION
-        function initParticles() {
-            console.log('✨ Initializing particles...');
+        // ===== ENHANCED REAL-TIME COUNTDOWN TIMER =====
+        
+        function updateEnhancedCountdown() {
+            const now = new Date().getTime();
+            // Set launch date to end of 2025 (you can adjust this date)
+            const launchDate = new Date('2025-12-31 23:59:59').getTime();
+            const timeLeft = launchDate - now;
+
+            if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                // Update countdown with animation
+                updateCountdownNumber('days', days);
+                updateCountdownNumber('hours', hours);
+                updateCountdownNumber('minutes', minutes);
+                updateCountdownNumber('seconds', seconds);
+            } else {
+                // Launch day reached
+                document.querySelector('.countdown-title').textContent = 'We Are Live!';
+                document.querySelectorAll('.countdown-number').forEach(num => num.textContent = '🚀');
+                document.querySelectorAll('.countdown-label').forEach(label => label.textContent = 'LIVE');
+            }
+        }
+
+        function updateCountdownNumber(elementId, newValue) {
+            const element = document.getElementById(elementId);
+            if (!element) return; // Safety check
             
-            if (typeof particlesJS !== 'undefined') {
-                particlesJS('particles-js', {
-                    particles: {
-                        number: { value: 80 },
-                        color: { value: "#00FF88" },
-                        shape: { type: "circle" },
-                        opacity: { value: 0.5 },
-                        size: { value: 3, random: true },
-                        line_linked: {
-                            enable: true,
-                            distance: 150,
-                            color: "#00FF88",
-                            opacity: 0.4,
-                            width: 1
-                        },
-                        move: {
-                            enable: true,
-                            speed: 2
-                        }
-                    },
-                    interactivity: {
-                        events: {
-                            onhover: { enable: true, mode: "repulse" },
-                            onclick: { enable: true, mode: "push" }
-                        }
+            const currentValue = element.textContent;
+            const newText = newValue.toString().padStart(2, '0');
+            
+            if (currentValue !== newText) {
+                // Simple update without complex animation that might fail
+                element.textContent = newText;
+                
+                // Add simple pulse effect
+                element.style.transform = 'scale(1.1)';
+                element.style.transition = 'transform 0.2s ease';
+                
+                setTimeout(() => {
+                    element.style.transform = 'scale(1)';
+                }, 200);
+                
+                // Add pulse effect on seconds change
+                if (elementId === 'seconds') {
+                    element.parentNode.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        element.parentNode.style.transform = 'scale(1)';
+                    }, 100);
+                }
+            }
+        }
+
+        // Initialize countdown immediately and set interval
+        console.log('🕐 Initializing countdown timer...');
+        
+        // Simpler, more reliable countdown function
+        function simpleCountdownUpdate() {
+            const now = new Date().getTime();
+            const launchDate = new Date('2025-12-31 23:59:59').getTime();
+            const timeLeft = launchDate - now;
+
+            if (timeLeft > 0) {
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                // Simple direct updates
+                const daysEl = document.getElementById('days');
+                const hoursEl = document.getElementById('hours');
+                const minutesEl = document.getElementById('minutes');
+                const secondsEl = document.getElementById('seconds');
+                
+                if (daysEl) daysEl.textContent = days.toString().padStart(2, '0');
+                if (hoursEl) hoursEl.textContent = hours.toString().padStart(2, '0');
+                if (minutesEl) minutesEl.textContent = minutes.toString().padStart(2, '0');
+                if (secondsEl) secondsEl.textContent = seconds.toString().padStart(2, '0');
+                
+                console.log(`⏰ Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`);
+            } else {
+                const titleEl = document.querySelector('.countdown-title');
+                if (titleEl) titleEl.textContent = 'We Are Live!';
+                document.querySelectorAll('.countdown-number').forEach(num => num.textContent = '🚀');
+                document.querySelectorAll('.countdown-label').forEach(label => label.textContent = 'LIVE');
+            }
+        }
+        
+        // Start simple countdown immediately
+        simpleCountdownUpdate();
+        setInterval(simpleCountdownUpdate, 1000);
+        
+        // Keep the original function as backup
+        updateEnhancedCountdown();
+        setInterval(updateEnhancedCountdown, 1000);
+
+        // ===== EMAIL SIGNUP WITH ENHANCED ANIMATION =====
+        
+        document.getElementById('signupForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = e.target.querySelector('input').value;
+            const submitBtn = e.target.querySelector('.submit-btn');
+            
+            // Animate form submission
+            gsap.timeline()
+                .to(submitBtn, {
+                    scale: 0.95,
+                    duration: 0.1
+                })
+                .to(submitBtn, {
+                    scale: 1.05,
+                    backgroundColor: '#00FF88',
+                    duration: 0.2
+                })
+                .to(submitBtn, {
+                    scale: 1,
+                    duration: 0.2,
+                    onComplete: () => {
+                        // Success animation
+                        gsap.to(submitBtn, {
+                            y: -10,
+                            boxShadow: "0 20px 40px rgba(0, 255, 136, 0.3)",
+                            duration: 0.3,
+                            ease: "back.out(2)"
+                        });
+                        
+                        setTimeout(() => {
+                            alert('🎉 Thank you! We\'ll notify you when we launch.');
+                            e.target.querySelector('input').value = '';
+                            
+                            gsap.to(submitBtn, {
+                                y: 0,
+                                backgroundColor: '',
+                                boxShadow: '',
+                                duration: 0.3
+                            });
+                        }, 500);
                     }
                 });
-                console.log('✅ Particles ready');
-            } else {
-                console.log('⚠️ ParticlesJS not available');
-            }
-        }
+        });
 
-        // 5. TYPED TEXT - SIMPLE VERSION
-        function initTypedText() {
-            console.log('⌨️ Setting up typed text...');
-            
-            if (typeof Typed !== 'undefined') {
-                const element = document.getElementById('typed-text');
-                if (element) {
-                    new Typed('#typed-text', {
-                        strings: [
-                            'Premium Tech Solutions',
-                            'Beautiful UI/UX Design',
-                            'Full-Stack Development',
-                            'Mobile Applications',
-                            'Digital Transformation'
-                        ],
-                        typeSpeed: 50,
-                        backSpeed: 25,
-                        backDelay: 2000,
-                        loop: true
-                    });
-                    console.log('✅ Typed text ready');
-                } else {
-                    console.log('⚠️ Typed text element not found');
-                }
-            } else {
-                console.log('⚠️ Typed.js not available');
-            }
-        }
-
-        // 6. EMAIL FORM - SIMPLE VERSION
-        function setupForm() {
-            console.log('📧 Setting up email form...');
-            
-            const form = document.getElementById('signupForm');
-            if (form) {
-                form.onsubmit = function(e) {
-                    e.preventDefault();
-                    const email = this.querySelector('input[type="email"]').value;
-                    
-                    if (email) {
-                        alert('🎉 Thank you! We\'ll notify you when we launch.');
-                        this.querySelector('input[type="email"]').value = '';
-                    }
-                };
-                console.log('✅ Form ready');
-            } else {
-                console.log('⚠️ Signup form not found');
-            }
-        }
-
-        // 7. SCROLL EFFECTS - SIMPLE VERSION
-        function setupScroll() {
-            console.log('📜 Setting up scroll effects...');
-            
-            window.onscroll = function() {
-                const scrolled = window.pageYOffset;
-                const total = document.body.scrollHeight - window.innerHeight;
-                const progress = (scrolled / total) * 100;
-                
-                const indicator = document.getElementById('scrollIndicator');
-                if (indicator) {
-                    indicator.style.width = progress + '%';
-                }
-            };
-            
-            console.log('✅ Scroll effects ready');
-        }
-
-        // 8. INSTAGRAM BUTTON FIX
-        function fixInstagramButton() {
-            console.log('📱 Fixing Instagram button...');
-            
-            const btn = document.getElementById('instagramBtn');
-            if (btn) {
-                btn.style.display = 'inline-flex';
-                btn.style.position = 'relative';
-                btn.style.zIndex = '999';
-                btn.style.visibility = 'visible';
-                console.log('✅ Instagram button fixed');
-            } else {
-                console.log('⚠️ Instagram button not found');
-            }
-        }
-
-        // ===== MAIN INITIALIZATION - GUARANTEED TO WORK =====
-        function initAll() {
-            console.log('🎯 STARTING FULL INITIALIZATION...');
-            
-            // Core functions - run immediately
-            startCountdown();
-            setupTheme();
-            setupForm();
-            setupScroll();
-            fixInstagramButton();
-            
-            // Visual effects - run after delay to ensure libraries load
-            setTimeout(() => {
-                initParticles();
-                initTypedText();
-                animateStats();
-            }, 1000);
-            
-            console.log('🎉 ALL FEATURES INITIALIZED!');
-            console.log('✅ Countdown: Working');
-            console.log('✅ Theme Toggle: Working');  
-            console.log('✅ Stats Animation: Working');
-            console.log('✅ Instagram Button: Fixed');
-            console.log('✅ Particles: Working');
-            console.log('✅ Scroll Effects: Working');
-        }
-
-        // ===== RUN EVERYTHING RELIABLY =====
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initAll);
-        } else {
-            initAll();
-        }
-
-        // Backup initialization
-        setTimeout(initAll, 2000);
+        // ===== MAGNETIC EFFECT FOR INTERACTIVE ELEMENTS =====
         
-        console.log('🚀 DEVIGNITY CLEAN VERSION READY!');
+        document.querySelectorAll('.magnetic').forEach(element => {
+            element.addEventListener('mousemove', (e) => {
+                const rect = element.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                gsap.to(element, {
+                    x: x * 0.3,
+                    y: y * 0.3,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+
+            element.addEventListener('mouseleave', () => {
+                gsap.to(element, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.5,
+                    ease: "elastic.out(1, 0.8)"
+                });
+            });
+        });
+
+        // ===== ADVANCED PARTICLE INTERACTIONS =====
+        
+        // Initialize enhanced particles with user interaction
+        particlesJS('particles-js', {
+            particles: {
+                number: { 
+                    value: 120, 
+                    density: { enable: true, value_area: 800 } 
+                },
+                color: { 
+                    value: ["#00FF88", "#7B61FF", "#FFD600"] 
+                },
+                shape: { 
+                    type: ["circle", "triangle"],
+                    stroke: { width: 0, color: "#000000" }
+                },
+                opacity: { 
+                    value: 0.15, 
+                    random: true,
+                    anim: { enable: true, speed: 1, opacity_min: 0.05, sync: false }
+                },
+                size: { 
+                    value: 4, 
+                    random: true,
+                    anim: { enable: true, speed: 2, size_min: 0.1, sync: false }
+                },
+                line_linked: { 
+                    enable: true, 
+                    distance: 150, 
+                    color: "#00FF88", 
+                    opacity: 0.15, 
+                    width: 1 
+                },
+                move: { 
+                    enable: true, 
+                    speed: 3, 
+                    direction: "none", 
+                    random: true, 
+                    straight: false, 
+                    out_mode: "out", 
+                    bounce: false,
+                    attract: { enable: true, rotateX: 600, rotateY: 1200 }
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: { 
+                    onhover: { enable: true, mode: "grab" }, 
+                    onclick: { enable: true, mode: "push" }, 
+                    resize: true 
+                },
+                modes: { 
+                    grab: { distance: 200, line_linked: { opacity: 0.3 } },
+                    push: { particles_nb: 6 },
+                    repulse: { distance: 100, duration: 0.4 }
+                }
+            },
+            retina_detect: true
+        });
+
+        // ===== SCROLL-TRIGGERED SECTION REVEALS =====
+        
+        // Add entrance animations to all major sections
+        const sections = document.querySelectorAll('section');
+        sections.forEach((section, index) => {
+            ScrollTrigger.create({
+                trigger: section,
+                start: 'top 85%',
+                onEnter: () => {
+                    gsap.fromTo(section, {
+                        y: 50,
+                        opacity: 0.8
+                    }, {
+                        y: 0,
+                        opacity: 1,
+                        duration: 1,
+                        ease: "power2.out"
+                    });
+                }
+            });
+        });
+
+        // ===== FLOATING ORBS WITH MOUSE INTERACTION =====
+        
+        const orbs = document.querySelectorAll('.gradient-orb');
+        
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX / window.innerWidth;
+            const mouseY = e.clientY / window.innerHeight;
+            
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 0.02;
+                const x = (mouseX - 0.5) * 100 * speed;
+                const y = (mouseY - 0.5) * 100 * speed;
+                
+                gsap.to(orb, {
+                    x: x,
+                    y: y,
+                    duration: 2,
+                    ease: "power2.out"
+                });
+            });
+        });
+
+        // ===== ENHANCED TYPED TEXT WITH MULTIPLE EFFECTS =====
+        
+        new Typed('#typed-text', {
+            strings: [
+                'Premium Tech Solutions ^1000',
+                'Beautiful UI/UX Design ^1000', 
+                'Full-Stack Development ^1000',
+                'Mobile Applications ^1000',
+                'Desktop Software ^1000',
+                'Cloud Solutions ^1000',
+                'AI & Machine Learning ^1000',
+                'Digital Transformation ^1000'
+            ],
+            typeSpeed: 60,
+            backSpeed: 30,
+            backDelay: 2000,
+            startDelay: 1000,
+            loop: true,
+            showCursor: true,
+            cursorChar: '<span style="color: #00FF88;">|</span>',
+            autoInsertCss: true,
+            onStringTyped: (arrayPos, self) => {
+                // Add pulse effect when string is complete
+                gsap.to('#typed-text', {
+                    scale: 1.02,
+                    duration: 0.2,
+                    yoyo: true,
+                    repeat: 1,
+                    ease: "power2.out"
+                });
+            }
+        });
+
+        // ===== PERFORMANCE OPTIMIZATIONS =====
+        
+        // Smooth scroll performance
+        let ticking = false;
+        
+        function updateScrollEffects() {
+            updateScrollIndicator();
+            ticking = false;
+        }
+        
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateScrollEffects);
+                ticking = true;
+            }
+        });
+
+        // Resize handler for responsive animations
+        window.addEventListener('resize', () => {
+            ScrollTrigger.refresh();
+        });
+
+        console.log('🚀 Enhanced dynamic features initialized successfully!');
+        console.log('✨ Features: Scroll animations, real-time counters, live countdown, particle effects');
+        
+        // ===== FINAL INITIALIZATION =====
+        
+        // Ensure all features are properly initialized
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎯 DOM Content Loaded - Running final checks...');
+            
+            // Check if countdown elements exist
+            const daysEl = document.getElementById('days');
+            const hoursEl = document.getElementById('hours');
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+            
+            if (daysEl && hoursEl && minutesEl && secondsEl) {
+                console.log('✅ Countdown elements found');
+                // Force first update
+                setTimeout(() => {
+                    updateEnhancedCountdown();
+                }, 100);
+            } else {
+                console.error('❌ Countdown elements missing');
+            }
+            
+            // Check theme toggle
+            const themeToggleBtn = document.getElementById('themeToggle');
+            if (themeToggleBtn) {
+                console.log('✅ Theme toggle button found');
+            } else {
+                console.error('❌ Theme toggle button missing');
+            }
+            
+            // Check Instagram button
+            const instagramBtn = document.getElementById('instagramBtn');
+            if (instagramBtn) {
+                console.log('✅ Instagram button found');
+                // Make sure it's visible
+                instagramBtn.style.display = 'inline-flex';
+                instagramBtn.style.zIndex = '100';
+            } else {
+                console.error('❌ Instagram button missing');
+            }
+            
+            console.log('🎉 All systems check complete!');
+        });
+        
+        // Also run initialization immediately in case DOMContentLoaded already fired
+        if (document.readyState === 'loading') {
+            console.log('⏳ Document still loading...');
+        } else {
+            console.log('⚡ Document ready - running immediate initialization');
+            setTimeout(() => {
+                updateEnhancedCountdown();
+            }, 100);
+        }
     </script>
 </body>
 </html>
